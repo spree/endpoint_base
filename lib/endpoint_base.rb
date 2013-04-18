@@ -13,7 +13,7 @@ class EndpointBase < Sinatra::Base
 
     #begin
       @message = JSON.parse(request.body.read).symbolize_keys
-    #escue
+    #rescue
     #  halt 406
     #end
   end
