@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'bundler'
+require 'vcr'
 
 Bundler.require(:default, :test)
 require 'rack/test'

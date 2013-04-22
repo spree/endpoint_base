@@ -20,14 +20,8 @@ class EndpointBase < Sinatra::Base
 
   private 
 
-    def process_result(result)
-      logger.info result
-      status result.first
-      json result.last
-    end
-
-    def config(message)
-      stores = YAML.load_file('config/stores.yml')
+      def config(message)
+      raise "No Stores available" unless self.respond_to?(:stores)
       if env_conf = stores[Sinatra::Base.environment.to_s]
         if env_conf.key? message[:store_id]
           env_conf[message[:store_id]].symbolize_keys
@@ -39,5 +33,10 @@ class EndpointBase < Sinatra::Base
         logger.error "No entry for '#{Sinatra::Base.environment.to_s}' in config/stores.yml"
         {}
       end
-  end
+
+    def process_result(result)
+      logger.info result
+      status result.first
+      json result.last
+    end
 end

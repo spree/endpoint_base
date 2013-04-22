@@ -8,17 +8,17 @@ describe "Sinatra App" do
   let(:payload) { {}.to_json }
   
   it "should reject POST without auth" do
-    #VCR.use_cassette('without_auth') do
+    VCR.use_cassette('without_auth') do
       post '/', payload
       last_response.status.should == 401
-    #end
+    end
   end
 
   it "should accept POST with auth" do
-    #VCR.use_cassette('without_auth') do
+    VCR.use_cassette('without_auth') do
       post '/', payload, auth
       last_response.status.should == 200
-    #end
+    end
   end
 
 end
