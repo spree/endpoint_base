@@ -21,17 +21,18 @@ class EndpointBase < Sinatra::Base
   private 
 
       def config(message)
-      raise "No Stores available" unless self.respond_to?(:stores)
-      if env_conf = stores[Sinatra::Base.environment.to_s]
-        if env_conf.key? message[:store_id]
-          env_conf[message[:store_id]].symbolize_keys
+        raise "No Stores available" unless self.respond_to?(:stores)
+        if env_conf = stores[Sinatra::Base.environment.to_s]
+          if env_conf.key? message[:store_id]
+            env_conf[message[:store_id]].symbolize_keys
+          else
+            logger.error "No entry for store_id: '#{message[:store_id]} in environment: '#{Sinatra::Base.environment.to_s}' in config/stores.yml"
+            {}
+          end
         else
-          logger.error "No entry for store_id: '#{message[:store_id]} in environment: '#{Sinatra::Base.environment.to_s}' in config/stores.yml"
+          logger.error "No entry for '#{Sinatra::Base.environment.to_s}' in config/stores.yml"
           {}
         end
-      else
-        logger.error "No entry for '#{Sinatra::Base.environment.to_s}' in config/stores.yml"
-        {}
       end
 
     def process_result(result)
