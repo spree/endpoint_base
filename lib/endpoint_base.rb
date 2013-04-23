@@ -11,11 +11,11 @@ class EndpointBase < Sinatra::Base
       halt 401
     end
 
-    #begin
+    begin
       @message = JSON.parse(request.body.read).symbolize_keys
-    #rescue
-    #  halt 406
-    #end
+    rescue
+      halt 406
+    end
   end
 
   private 
