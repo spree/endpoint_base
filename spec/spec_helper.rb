@@ -11,9 +11,8 @@ Dir["./spec/support/**/*.rb"].each {|f| require f}
 Sinatra::Base.environment = 'test'
 
 def app
- TestEndpoint 
+ TestEndpoint
 end
-#
 
 RSpec.configure do |config|
   config.include Rack::Test::Methods
@@ -26,6 +25,10 @@ class TestEndpoint < EndpointBase
   set :logging, true
 
   post '/' do
-    return "200"
+    process_result([200, @message])
+  end
+
+  post '/config' do
+    process_result([200, config(@message)])
   end
 end
