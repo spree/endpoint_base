@@ -25,7 +25,7 @@ describe "Sinatra App" do
   end
 
   it "should find parameters" do
-    body = { 'payload' => { 'parameters' => {'x' => 1, 2 => 3} } }.to_json
+    body = { 'payload' => { 'parameters' => [{'name' => 'x', 'value' => 1}, {'name' => '2', 'value' => 3}] } }.to_json
     post '/config', body, auth
 
     response = JSON.parse(last_response.body)

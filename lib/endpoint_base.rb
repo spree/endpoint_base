@@ -21,12 +21,17 @@ class EndpointBase < Sinatra::Base
   private
 
     def config(message)
-      message[:payload]['parameters'] || {}
+      conf = message[:payload]['parameters'] || []
+
+      conf.inject({}) do |result, param|
+        param.symbolize_keys!
+        result[param[:name]] = param[:value]
+        result
+      end
     end
 
-    def process_result(result)
-      logger.info result
-      status result.first
-      json result.last
+    def process_result(code, response)
+      status code
+      json response
     end
 end

@@ -25,10 +25,10 @@ class TestEndpoint < EndpointBase
   set :logging, true
 
   post '/' do
-    process_result([200, @message])
+    process_result(200, @message)
   end
 
   post '/config' do
-    process_result([200, config(@message)])
+    process_result(200, config(@message))
   end
 end
