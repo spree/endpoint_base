@@ -15,11 +15,10 @@ module Sinatra
       last_response.status.should == 200
     end
 
-    it "should return json for GET on root url" do
-      get '/', '', headers
-      last_response.status.should == 200
-      response = ::JSON.parse(last_response.body)
-      response['error'].should == 'public/endpoint.json is missing'
+    it "should redirect to endpoint.json for GET on root url" do
+      get '/', nil, {}
+      last_response.status.should == 302
+      last_response.location.should == 'http://example.org/endpoint.json'
     end
 
 

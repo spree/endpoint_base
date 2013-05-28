@@ -28,9 +28,13 @@ module Sinatra
       app.helpers Sinatra::JSON
       app.helpers IntegratorUtils::Helpers
 
+      app.set :public_folder, './public'
+
       app.before do
-        unless request.env["HTTP_X_AUGURY_TOKEN"] == ENV['ENDPOINT_KEY']
-          halt 401
+        if request.get? && request.path_info == '/'
+          redirect '/endpoint.json'
+        else
+          halt 401 if request.env["HTTP_X_AUGURY_TOKEN"] != ENV['ENDPOINT_KEY']
         end
 
         if request.post?
@@ -41,16 +45,6 @@ module Sinatra
             halt 406
           end
         end
-      end
-
-      app.get '/' do
-        response = begin
-          File.read(File.join('public', 'endpoint.json'))
-        rescue 
-          {'error' => 'public/endpoint.json is missing'}
-        end
-
-        process_result 200, response
       end
 
     end
