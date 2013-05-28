@@ -4,4 +4,4 @@ rvm:
   - 2.0.0
 notifications:
   email:
-    - ryan@spreecommerce.com
+    - brian@spreecommerce.com

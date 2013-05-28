@@ -20,7 +20,8 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'sinatra-contrib'
   gem.add_dependency 'json'
   gem.add_dependency 'active_support'
-  
+
+  gem.add_development_dependency 'rake'
   gem.add_development_dependency 'rspec'
   gem.add_development_dependency 'rack-test'
   gem.add_development_dependency 'vcr'
