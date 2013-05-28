@@ -1,0 +1,7 @@
+script: "bundle exec spec"
+rvm:
+  - 1.9.3
+  - 2.0.0
+notifications:
+  email:
+    - ryan@spreecommerce.com
