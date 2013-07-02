@@ -16,7 +16,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  gem.add_dependency 'sinatra', '1.3.4'
+  gem.add_dependency 'sinatra', '1.4.3'
   gem.add_dependency 'sinatra-contrib'
   gem.add_dependency 'json'
   gem.add_dependency 'active_support'
