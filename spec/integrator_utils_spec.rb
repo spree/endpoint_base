@@ -21,6 +21,10 @@ module Sinatra
       last_response.location.should == 'http://example.org/endpoint.json'
     end
 
+    it 'returns a 200 for /auth check' do
+      get '/auth', {}, headers
+      last_response.status.should == 200
+    end
 
     it "should parse valid json from body" do
       post '/', {payload: {}, test: 1}.to_json, headers

@@ -47,6 +47,9 @@ module Sinatra
         end
       end
 
+      app.get '/auth' do
+        status 200
+      end
     end
 
   end
