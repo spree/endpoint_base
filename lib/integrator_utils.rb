@@ -2,6 +2,7 @@ require 'sinatra/base'
 require 'sinatra/json'
 require 'json'
 require 'active_support/core_ext/hash'
+require 'multi_json'
 
 module Sinatra
   module IntegratorUtils
