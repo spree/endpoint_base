@@ -19,11 +19,14 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'sinatra', '1.4.3'
   gem.add_dependency 'sinatra-contrib'
   gem.add_dependency 'json'
-  gem.add_dependency 'activesupport'
+  gem.add_dependency 'activesupport', "~> 4.0.0"
 
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'rspec'
   gem.add_development_dependency 'rack-test'
   gem.add_development_dependency 'vcr'
+  gem.add_development_dependency 'rails', "~> 4.0.0"
+  gem.add_development_dependency 'rspec-rails'
+  gem.add_development_dependency 'sqlite3'
 end
 
