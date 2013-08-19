@@ -11,8 +11,7 @@ module Sinatra
       def config(message)
         conf = message[:payload]['parameters'] || []
 
-        conf.inject({}) do |result, param|
-          param.symbolize_keys!
+        conf.inject(HashWithIndifferentAccess.new) do |result, param|
           result[param[:name]] = param[:value]
           result
         end
@@ -40,7 +39,7 @@ module Sinatra
 
         if request.post?
           begin
-            @message = ::JSON.parse(request.body.read).symbolize_keys
+            @message = ::JSON.parse(request.body.read).with_indifferent_access
             @config = config(@message)
           rescue Exception => e
             halt 406

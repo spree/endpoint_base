@@ -27,8 +27,11 @@ module Sinatra
     end
 
     it "should parse valid json from body" do
-      post '/', {payload: {}, test: 1}.to_json, headers
-      ::JSON.parse(last_response.body)['test'].should == 1
+      post '/', {payload: {}, test: [{"west" => 1}, {"south" => false}]}.to_json, headers
+      msg = ::JSON.parse(last_response.body)
+      msg['test'].size.should == 2
+      msg['test'].first['west'].should == 1
+      msg['test'].last[:south].should be_false
     end
 
     it "should return 406 if body is not valid json" do
