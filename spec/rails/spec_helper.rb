@@ -1,9 +1,6 @@
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../dummy/config/environment", __FILE__)
 require 'rspec/rails'
-require 'rspec/autorun'
-
-require File.join(File.dirname(__FILE__), '..','..','lib','rails', 'endpoint_base_controller.rb')
 
 Dir["./spec/rails/support/**/*.rb"].each {|f| require f}
 

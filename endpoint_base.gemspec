@@ -7,8 +7,8 @@ Gem::Specification.new do |gem|
   gem.version       = '2.0'
   gem.authors       = ["Andrew Hooker"]
   gem.email         = ["andrew@spreecommerce.com"]
-  gem.description   = %q{Shared functionality for spree professional endpoints}
-  gem.summary       = %q{Spree Endpoints}
+  gem.description   = %q{Shared functionality for SpreeCommerce hub endpoints}
+  gem.summary       = %q{SpreeCommerce hub endpoints base library}
   gem.homepage      = "http://www.spreecommerce.com"
 
   gem.files         = `git ls-files`.split($/)
@@ -16,17 +16,25 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  gem.add_dependency 'sinatra', '1.4.3'
-  gem.add_dependency 'sinatra-contrib'
   gem.add_dependency 'json'
+  gem.add_dependency 'jbuilder'
   gem.add_dependency 'activesupport'
 
-  gem.add_development_dependency 'rake'
-  gem.add_development_dependency 'rspec'
+  #sinatra
+  gem.add_development_dependency 'sinatra', '1.4.3'
+  gem.add_development_dependency 'sinatra-contrib'
+  gem.add_development_dependency 'tilt-jbuilder'
   gem.add_development_dependency 'rack-test'
-  gem.add_development_dependency 'vcr'
+
+  #rails
   gem.add_development_dependency 'rails', "~> 4.0.0"
   gem.add_development_dependency 'rspec-rails'
   gem.add_development_dependency 'sqlite3'
+
+  #dev
+  gem.add_development_dependency 'rake'
+  gem.add_development_dependency 'rspec'
+  gem.add_development_dependency 'vcr'
+  gem.add_development_dependency 'simplecov'
 end
 
