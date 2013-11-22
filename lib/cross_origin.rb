@@ -30,7 +30,7 @@ module Sinatra
 
       app.helpers CrossOrigin::Helpers
 
-      app.set :cross_origin, false 
+      app.set :cross_origin, false
       app.set :allow_origin, :any
       app.set :allow_methods, [:post, :get, :options]
       app.set :allow_credentials, true

@@ -9,5 +9,5 @@ class EndpointBase < Sinatra::Base
   configure do
     enable :cross_origin
   end
-
 end
+
