@@ -14,6 +14,10 @@ module EndpointBase
   def self.sinatra?
     self.framework == :sinatra
   end
+
+  def self.path_to_views
+    File.expand_path("../app/views", File.dirname(__FILE__))
+  end
 end
 
 require 'active_support'

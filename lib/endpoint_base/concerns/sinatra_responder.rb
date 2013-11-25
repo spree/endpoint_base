@@ -29,9 +29,8 @@ module EndpointBase::Concerns
           @attrs = response
         end
 
-        jbuilder :'response.json', views: "#{settings.root}/../app/views/application"
+        jbuilder :'response.json', views: "#{EndpointBase.path_to_views}/application"
       end
     end
-
   end
 end
