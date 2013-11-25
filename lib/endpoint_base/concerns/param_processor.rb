@@ -1,3 +1,5 @@
+require 'json'
+
 module EndpointBase::Concerns
   module ParamProcessor
     extend ActiveSupport::Concern
