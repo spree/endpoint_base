@@ -23,6 +23,8 @@ module EndpointBase::Concerns
     module Helpers
       def process_result(code, response = nil)
         status code
+        content_type 'application/json', :charset => 'utf-8'
+
         if response
           warn '[DEPRECATION WARNING] Passing a hash as a second argument to `process_result` is deprecated, use Response DSL instead.'
           @attrs = response

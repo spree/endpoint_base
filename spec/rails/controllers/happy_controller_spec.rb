@@ -11,7 +11,7 @@ describe HappyController, type: 'controller' do
                    'payload' => { 'parameters' => config } }}
 
 
-  it "render populated response" do
+  it 'render populated response' do
     post :index, message
 
     response.code.should eq '200'
