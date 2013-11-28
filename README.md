@@ -1,6 +1,6 @@
 # EndpointBase
 
-TODO: Write a gem description
+Shared functionality for SpreeCommerce Hub Endpoints.
 
 ## Installation
 
@@ -18,25 +18,93 @@ Or install it yourself as:
 
 ## Usage
 
+### Sinatra
+
+#### Gemfile
+
 ```ruby
-require 'endpoint_base'
+gem 'sinatra'
+gem 'tilt-jbuilder', require: 'sinatra/jbuilder'
+# ...
+gem 'endpoint_base'
+```
 
-class SampleEndpoint < EndpointBase
+#### Endpoint
 
+```ruby
+class SampleEndpoint < EndpointBase::Sinatra::Base
   post '/sample' do
-    result = { 'message_id'    => @message[:message_id],
-               'notifications' => [ { 'level'       => 'info',
-                                      'subject'     => 'New sample',
-                                      'description' => '...' } ] }
-    process_result 200, result
+    # Return a message sample:new.
+    add_message 'sample:new', { sample: { ... } }
+
+    # Create or update the parameter sample.new.
+    add_parameter 'sample.new', '...'
+
+    # Return a notification info. The three levels available are: info, warn and error.
+    add_notification 'info', 'Info subject', 'Info description'
+
+    # Return a customized key and value.
+    add_value 'my_customized_key', { ... }
+
+    process_result 200
+  end
+
+  post '/fail' do
+    # Return a notification error.
+    add_notification 'error', 'Error subject', '...'
+
+    process_result 500
   end
 end
 
 ```
 
-## Testing
+### Rails
 
-EndpointBase provides a `Controllers` testing support.
+#### Gemfile
+
+```ruby
+gem 'rails'
+# ...
+gem 'endpoint_base'
+```
+
+#### Endpoint
+
+```ruby
+class SampleController < ApplicationController
+  include EndpointBase::Concerns::All
+  skip_before_filter :verify_authenticity_token
+
+  def sample
+    # Return a message sample:new.
+    add_message 'sample:new', { sample: { ... } }
+
+    # Create or update the parameter sample.new.
+    add_parameter 'sample.new', '...'
+
+    # Return a notification info. The three levels available are: info, warn and error.
+    add_notification 'info', 'Info subject', 'Info description'
+
+    # Return a customized key and value.
+    add_value 'my_customized_key', { ... }
+
+    process_result 200
+  end
+
+  def fail
+    # Return a notification error.
+    add_notification 'error', 'Error subject', '...'
+
+    process_result 500
+  end
+end
+
+```
+
+### Testing
+
+##### spec_helper.rb
 
 ```ruby
 # ...
@@ -50,7 +118,7 @@ RSpec.configure do |config|
 end
 ```
 
-Which enables you to use `json_response` and `auth` in your Endpoint tests. It also sets `ENV['ENDPOINT_KEY'] ||= '123'`.
+`Spree:TestingSupport::Controllers` enables you to use `json_response` and `auth` in your Endpoint tests. It also sets `ENV['ENDPOINT_KEY'] ||= '123'`.
 
 ```ruby
 require 'spec_helper'
@@ -68,8 +136,8 @@ describe SampleEndpoint do
 
       expect(json_response['notifications']).to have(1).item
       expect(json_response['notifications'].first).to eq ({ 'level'       => 'info',
-                                                            'subject'     => 'New Sample',
-                                                            'description' => '...' })
+                                                            'subject'     => 'Info subject',
+                                                            'description' => 'Info description' })
     end
   end
 end
