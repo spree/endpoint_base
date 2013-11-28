@@ -13,13 +13,12 @@ module EndpointBase::Concerns
     private
 
     module Helpers
-
       def add_value(name, value)
         @attrs ||= {}
         @attrs[name] = value
       end
 
-      def add_message(message, payload={})
+      def add_message(message, payload = {})
         @messages ||= []
 
         @messages << { message: message,
@@ -40,8 +39,6 @@ module EndpointBase::Concerns
                             subject: subject,
                             description: description }.merge(options)
       end
-
     end
-
- end
+  end
 end

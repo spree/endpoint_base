@@ -17,12 +17,11 @@ module EndpointBase::Concerns
         get '/auth' do
           status 200
         end
-
       end
     end
 
     module Helpers
-      def process_result(code, response=nil)
+      def process_result(code, response = nil)
         status code
         if response
           warn '[DEPRECATION WARNING] Passing a hash as a second argument to `process_result` is deprecated, use Response DSL instead.'
@@ -34,3 +33,4 @@ module EndpointBase::Concerns
     end
   end
 end
+

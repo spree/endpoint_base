@@ -7,7 +7,7 @@ class HappyController < ApplicationController
     add_parameter 'spree.order_poll.first_updated_at', 'yesterday'
     add_notification 'info', 'hello world', 'today is a good day to ...'
 
-    render :response
+    process_result 200
   end
-
 end
+
