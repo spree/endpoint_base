@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |gem|
   gem.name          = "endpoint_base"
-  gem.version       = '0.0.2'
+  gem.version       = '0.1.0'
   gem.authors       = ["Andrew Hooker"]
   gem.email         = ["andrew@spreecommerce.com"]
   gem.description   = %q{Shared functionality for SpreeCommerce hub endpoints}
