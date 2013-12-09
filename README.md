@@ -24,6 +24,7 @@ Or install it yourself as:
 
 ```ruby
 gem 'sinatra'
+gem 'tilt', '~> 1.4.1'
 gem 'tilt-jbuilder', require: 'sinatra/jbuilder'
 # ...
 gem 'endpoint_base'
