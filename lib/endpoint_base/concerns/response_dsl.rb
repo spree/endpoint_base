@@ -32,12 +32,12 @@ module EndpointBase::Concerns
                          value: value }
       end
 
-      def add_notification(level, subject, description, options = {})
+      def add_notification(level, subject, description = nil, options = {})
         @notifications ||= []
 
         @notifications << { level: level,
                             subject: subject,
-                            description: description }.merge(options)
+                            description: description || subject }.merge(options)
       end
     end
   end
