@@ -8,6 +8,8 @@ module EndpointBase::Concerns
       elsif EndpointBase.sinatra?
         helpers Helpers
 
+        set :public_folder, './public'
+
         before do
           if request.get? && request.path_info == '/'
             redirect '/endpoint.json'
