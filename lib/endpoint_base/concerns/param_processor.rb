@@ -34,7 +34,7 @@ module EndpointBase::Concerns
     private
 
     def prepare_message(hsh)
-      @message = hsh.slice('message_id', 'payload')
+      @message = hsh.slice('message_id', 'message', 'payload')
     end
 
     def prepare_config(hsh)
