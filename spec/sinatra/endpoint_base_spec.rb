@@ -51,5 +51,16 @@ module EndpointBase::Sinatra
 
       expect(last_response.content_type).to eq 'application/json;charset=utf-8'
     end
+
+    describe '#add_messages' do
+      it 'adds messages' do
+        post '/add_messages', payload, headers
+
+        response = ::JSON.parse(last_response.body)
+
+        expect(response['messages']).to eq([{ 'message' => 'order:new', 'payload' => { 'number' => 1 } },
+                                            { 'message' => 'order:new', 'payload' => { 'number' => 2 } }])
+      end
+    end
   end
 end

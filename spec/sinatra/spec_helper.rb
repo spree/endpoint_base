@@ -1,4 +1,5 @@
 require 'simplecov'
+
 SimpleCov.start do
   add_filter 'spec/spec_helper'
   add_filter 'lib/endpoint_base.rb'
@@ -30,7 +31,6 @@ end
 ENV['ENDPOINT_KEY'] = 'x123'
 
 class TestEndpoint < EndpointBase::Sinatra::Base
-
   set :logging, true
 
   post '/' do
@@ -49,6 +49,12 @@ class TestEndpoint < EndpointBase::Sinatra::Base
 
   post '/config' do
     add_value :params, @config
+
+    process_result 200
+  end
+
+  post '/add_messages' do
+    add_messages 'order:new', [ { number: 1 }, { number: 2 } ]
 
     process_result 200
   end
