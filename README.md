@@ -38,6 +38,9 @@ class SampleEndpoint < EndpointBase::Sinatra::Base
     # Return a message sample:new.
     add_message 'sample:new', { sample: { ... } }
 
+    # Return a list of messages of the same type
+    add_messages 'sample:new', [{ sample: { ... } }, { sample: { ... } }]
+
     # Create or update the parameter sample.new.
     add_parameter 'sample.new', '...'
 
@@ -80,6 +83,9 @@ class SampleController < ApplicationController
   def sample
     # Return a message sample:new.
     add_message 'sample:new', { sample: { ... } }
+
+    # Return a list of messages of the same type
+    add_messages 'sample:new', [{ sample: { ... } }, { sample: { ... } }]
 
     # Create or update the parameter sample.new.
     add_parameter 'sample.new', '...'
