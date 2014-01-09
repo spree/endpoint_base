@@ -25,6 +25,14 @@ module EndpointBase::Concerns
                        payload: payload }
       end
 
+      def add_messages(message, collection = [])
+        @messages ||= []
+
+        collection.each do |payload|
+          @messages << { message: message, payload: payload }
+        end
+      end
+
       def add_parameter(name, value)
         @parameters ||= []
 
