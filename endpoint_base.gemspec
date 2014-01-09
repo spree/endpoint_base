@@ -1,15 +1,18 @@
 # -*- encoding: utf-8 -*-
 lib = File.expand_path('../lib', __FILE__)
+
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
+require File.expand_path(File.join(File.dirname(__FILE__), %w[lib endpoint_base version]))
+
 Gem::Specification.new do |gem|
-  gem.name          = "endpoint_base"
-  gem.version       = '0.1.0'
-  gem.authors       = ["Andrew Hooker"]
-  gem.email         = ["andrew@spreecommerce.com"]
+  gem.name          = 'endpoint_base'
+  gem.version       = EndpointBase::VERSION
+  gem.authors       = ['Andrew Hooker']
+  gem.email         = ['andrew@spreecommerce.com']
   gem.description   = %q{Shared functionality for SpreeCommerce hub endpoints}
   gem.summary       = %q{SpreeCommerce hub endpoints base library}
-  gem.homepage      = "http://www.spreecommerce.com"
+  gem.homepage      = 'http://www.spreecommerce.com'
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
