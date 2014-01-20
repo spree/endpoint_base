@@ -10,8 +10,7 @@ json.parameters @parameters do |parameter|
 end if @parameters.present?
 
 json.messages @messages do |message|
-  json.message message[:message]
-  json.payload message[:payload]
+  json.(message, *message.keys)
 end if @messages.present?
 
 json.notifications @notifications do |notification|

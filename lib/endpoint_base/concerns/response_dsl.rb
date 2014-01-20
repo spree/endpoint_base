@@ -18,15 +18,15 @@ module EndpointBase::Concerns
         @attrs[name] = value
       end
 
-      def add_message(message, payload = {})
+      def add_message(message, payload = {}, extra = {})
         @messages ||= []
 
         @messages << { message: message,
-                       payload: payload }
+                       payload: payload }.merge(extra)
       end
 
-      def add_messages(message, collection)
-        collection.each { |payload| add_message(message, payload) }
+      def add_messages(message, collection, extra = {})
+        collection.each { |payload| add_message(message, payload, extra) }
       end
 
       def add_parameter(name, value)
