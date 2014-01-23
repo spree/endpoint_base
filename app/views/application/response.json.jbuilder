@@ -13,8 +13,4 @@ json.messages @messages do |message|
   json.(message, *message.keys)
 end if @messages.present?
 
-json.notifications @notifications do |notification|
-  json.level         notification[:level]
-  json.subject       notification[:subject]
-  json.description   notification[:description]
-end if @notifications.present?
+json.notifications @notifications
