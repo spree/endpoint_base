@@ -9,8 +9,5 @@ json.parameters @parameters do |parameter|
   json.value parameter[:value]
 end if @parameters.present?
 
-json.messages @messages do |message|
-  json.(message, *message.keys)
-end if @messages.present?
-
-json.notifications @notifications
+json.messages      @messages      if @messages.present?
+json.notifications @notifications if @notifications.present?

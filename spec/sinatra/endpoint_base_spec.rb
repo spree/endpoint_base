@@ -13,6 +13,9 @@ module EndpointBase::Sinatra
     it 'accepts POST with auth' do
       post '/', payload, headers
       expect(last_response).to be_ok
+
+      expect(::JSON.parse(last_response.body)['notifications']).to be_nil
+      expect(::JSON.parse(last_response.body)['messages']).to be_nil
     end
 
     it 'redirects to endpoint.json for GET on root url' do
@@ -60,6 +63,16 @@ module EndpointBase::Sinatra
 
         expect(response['messages']).to eq([{ 'message' => 'order:new', 'payload' => { 'number' => 1 } },
                                             { 'message' => 'order:new', 'payload' => { 'number' => 2 } }])
+      end
+    end
+
+    describe '#add_notifications'do
+      it 'adds messages' do
+        post '/add_notifications', payload, headers
+
+        response = ::JSON.parse(last_response.body)
+
+        expect(response['notifications']).to eq([{ 'level' => 'error', 'subject' => 'subject', 'description' => 'description', 'backtrace' => 'backtrace' }])
       end
     end
   end

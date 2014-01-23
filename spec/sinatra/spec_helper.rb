@@ -58,4 +58,10 @@ class TestEndpoint < EndpointBase::Sinatra::Base
 
     process_result 200
   end
+
+  post '/add_notifications' do
+    add_notification 'error', 'subject', 'description', { backtrace: 'backtrace' }
+
+    process_result 200
+  end
 end
