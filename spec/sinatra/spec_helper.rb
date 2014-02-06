@@ -21,7 +21,15 @@ require File.join(File.dirname(__FILE__), '../..', 'lib', 'endpoint_base', 'sina
 Sinatra::Base.environment = 'test'
 
 def app
-  TestEndpoint
+
+  Rack::Builder.new do
+    map '/' do
+      run TestEndpoint
+    end
+    map '/myapp' do
+      run TestEndpoint
+    end
+  end.to_app
 end
 
 RSpec.configure do |config|

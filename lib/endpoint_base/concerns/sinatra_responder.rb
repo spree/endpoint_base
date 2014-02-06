@@ -12,7 +12,7 @@ module EndpointBase::Concerns
 
         before do
           if request.get? && request.path_info == '/'
-            redirect '/endpoint.json'
+            redirect "#{request.script_name}/endpoint.json"
           end
         end
 
