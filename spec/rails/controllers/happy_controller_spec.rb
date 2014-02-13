@@ -7,8 +7,8 @@ describe HappyController, type: 'controller' do
                   { 'name' => 'spree.api_version', 'value' => '2.0' }] }
 
   let(:message) {{ 'store_id' => '123229227575e4645c000001',
-                   'message_id' => 'abc',
-                   'payload' => { 'parameters' => config } }}
+                   'requet_id' => 'abc',
+                   'parameters' => config }}
 
 
   it 'render populated response' do
@@ -16,20 +16,12 @@ describe HappyController, type: 'controller' do
 
     response.code.should eq '200'
 
-    json_response['messages'].size.should == 1
-    msg = json_response['messages'].first
-    msg['message'].should == 'spree:order:poll'
-    msg['payload'].should == {}
+    json_response['products'].size.should == 1
+    product = json_response['products'].first
+    product['id'].should == 1
 
-    json_response['parameters'].size.should == 2
-    param =  json_response['parameters'].first
-    param['name'].should == 'spree.order_poll.last_updated_at'
-    param['value'].should  == 'today'
+    json_response['parameters']['spree.order_poll.last_updated_at'].should  == 'today'
 
-    json_response['notifications'].size.should == 1
-    note = json_response['notifications'].first
-    note['level'].should == 'info'
-    note['subject'].should  == 'hello world'
-    note['description'].should  == 'today is a good day to ...'
+    json_response['summary'].should  == 'today is a good day to ...'
   end
 end

@@ -9,7 +9,7 @@ module EndpointBase::Concerns
         helper Helpers
 
         before_action do
-          prepare_message params
+          prepare_payload params
           prepare_config params
         end
 
@@ -24,7 +24,7 @@ module EndpointBase::Concerns
               halt 406
             end
 
-            prepare_message parsed
+            prepare_payload parsed
             prepare_config parsed
           end
         end
@@ -33,16 +33,18 @@ module EndpointBase::Concerns
 
     private
 
-    def prepare_message(hsh)
-      @message = hsh.slice('message_id', 'message', 'payload')
+    def prepare_payload(hsh)
+      @payload = hsh
     end
 
     def prepare_config(hsh)
-      @config = hsh[:payload]['parameters'] || []
-      @config = @config.inject({}) do |result, param|
-        result[param[:name]] = param[:value]
-        result
+      if hsh.key? 'parameters'
+        if hsh['parameters'].is_a? Hash
+          @config = hsh['parameters']
+        end
       end
+
+      @config || {}
     end
 
     module Helpers

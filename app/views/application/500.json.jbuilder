@@ -1,2 +1,2 @@
-json.message_id @message['message_id']
-json.error error
+json.request_id @payload['request_id']
+json.summary error

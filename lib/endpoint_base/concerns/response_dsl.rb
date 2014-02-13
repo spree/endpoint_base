@@ -18,30 +18,19 @@ module EndpointBase::Concerns
         @attrs[name] = value
       end
 
-      def add_message(message, payload = {}, extra = {})
-        @messages ||= []
-
-        @messages << { message: message,
-                       payload: payload }.merge(extra)
-      end
-
-      def add_messages(message, collection, extra = {})
-        collection.each { |payload| add_message(message, payload, extra) }
-      end
-
       def add_parameter(name, value)
-        @parameters ||= []
+        @parameters ||= {}
 
-        @parameters << { name: name,
-                         value: value }
+        @parameters[name] = value
       end
 
-      def add_notification(level, subject, description = nil, options = {})
-        @notifications ||= []
+      def set_summary(summary)
+        add_value(:summary, summary)
+      end
 
-        @notifications << { level: level,
-                            subject: subject,
-                            description: description || subject }.merge(options)
+      def add_object(klass, object)
+        @objects ||= Hash.new {|h,k| h[k] = []}
+        @objects[klass.to_s.pluralize] << object
       end
     end
   end

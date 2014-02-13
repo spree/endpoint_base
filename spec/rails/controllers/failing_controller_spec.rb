@@ -7,16 +7,16 @@ describe FailingController, type: 'controller' do
                   { 'name' => 'spree.api_version', 'value' => '2.0' }] }
 
   let(:message) {{ 'store_id' => '123229227575e4645c000001',
-                   'message_id' => 'abc',
-                   'payload' => { 'parameters' => config } }}
+                   'request_id' => 'abc',
+                   'parameters' => config }}
 
 
   it "renders the 500.json page on exceptions" do
     post :index, message
 
     response.code.should eq '500'
-    json_response['error'].should eq 'I see dead people'
-    json_response['message_id'].should eq 'abc'
+    json_response['summary'].should eq 'I see dead people'
+    json_response['request_id'].should eq 'abc'
   end
 
   it "return 401 on authorization failues" do

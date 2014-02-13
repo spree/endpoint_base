@@ -45,30 +45,41 @@ class TestEndpoint < EndpointBase::Sinatra::Base
     process_result 200
   end
 
+  #used to verify JSON parsing in param_processor
   post '/payload' do
-    add_value :payload, @message[:payload]
-
-    process_result 200
+    @payload.to_json
   end
 
-  post '/deprecated' do
-    process_result 200, @message
-  end
-
+  #used to verify parameters are correctly stored in @config
   post '/config' do
     add_value :params, @config
 
     process_result 200
   end
 
-  post '/add_messages' do
-    add_messages 'order:new', [ { number: 1 }, { number: 2 } ]
+  post '/add_value' do
+    add_value :priates, [  { id: 5, name: 'Blue Beard'},
+                           { id: 7, name: 'Peg Eye' } ]
 
     process_result 200
   end
 
-  post '/add_notifications' do
-    add_notification 'error', 'subject', 'description', { backtrace: 'backtrace' }
+  post '/add_objects' do
+    add_object :order, { id: 1, email: 'test@example.com' }
+    add_object :order, { id: 2, email: 'spree@example.com' }
+    add_object :product, { id: 1, sku: 'ROR-123' }
+
+    process_result 200
+  end
+
+  post '/add_parameter' do
+    add_parameter 'some.param', 123
+
+    process_result 200
+  end
+
+  post '/set_summary' do
+    set_summary 'everything is ok'
 
     process_result 200
   end
