@@ -35,28 +35,27 @@ gem 'endpoint_base'
 ```ruby
 class SampleEndpoint < EndpointBase::Sinatra::Base
   post '/sample' do
-    # Return a message sample:new.
-    add_message 'sample:new', { sample: { ... } }
-
-    # Return a list of messages of the same type
-    add_messages 'sample:new', [{ sample: { ... } }, { sample: { ... } }]
+    # Return an order object.
+    add_object :order, { id: 1, email: 'test@example.com' }
 
     # Create or update the parameter sample.new.
     add_parameter 'sample.new', '...'
 
-    # Return a notification info. The three levels available are: info, warn and error.
-    add_notification 'info', 'Info subject', 'Info description'
+    # Set the notification summary.
+    set_summary 'The order was imported correctly'
 
     # Return a customized key and value.
     add_value 'my_customized_key', { ... }
 
+    #return the relevant HTTP status code
     process_result 200
   end
 
   post '/fail' do
-    # Return a notification error.
-    add_notification 'error', 'Error subject', '...'
+    # Set the notification summary.
+    set_summary 'The order failed to imported'
 
+    #return the relevant HTTP status code
     process_result 500
   end
 end
@@ -81,28 +80,27 @@ class SampleController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
   def sample
-    # Return a message sample:new.
-    add_message 'sample:new', { sample: { ... } }
-
-    # Return a list of messages of the same type
-    add_messages 'sample:new', [{ sample: { ... } }, { sample: { ... } }]
+    # Return an order object.
+    add_object :order, { id: 1, email: 'test@example.com' }
 
     # Create or update the parameter sample.new.
     add_parameter 'sample.new', '...'
 
-    # Return a notification info. The three levels available are: info, warn and error.
-    add_notification 'info', 'Info subject', 'Info description'
+    # Set the notification summary.
+    set_summary 'The order was imported correctly'
 
     # Return a customized key and value.
     add_value 'my_customized_key', { ... }
 
+    #return the relevant HTTP status code
     process_result 200
   end
 
   def fail
-    # Return a notification error.
-    add_notification 'error', 'Error subject', '...'
+    # Set the notification summary.
+    set_summary 'The order failed to imported'
 
+    #return the relevant HTTP status code
     process_result 500
   end
 end
@@ -131,9 +129,9 @@ end
 require 'spec_helper'
 
 describe SampleEndpoint do
-  let(:request) { { message: 'sample:new',
-                    message_id: '1234567',
-                    payload: { parameters: [] } } }
+  let(:request) { { request_id: '1234567',
+                    order: {},
+                    parameters: []  } }
 
   describe '/sample' do
     it 'notifies a new sample' do
@@ -141,10 +139,7 @@ describe SampleEndpoint do
 
       expect(last_response).to be_ok
 
-      expect(json_response['notifications']).to have(1).item
-      expect(json_response['notifications'].first).to eq ({ 'level'       => 'info',
-                                                            'subject'     => 'Info subject',
-                                                            'description' => 'Info description' })
+      expect(json_response['summary']).to eq "Order was successfully imported"
     end
   end
 end
