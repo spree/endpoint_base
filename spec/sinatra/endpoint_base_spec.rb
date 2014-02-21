@@ -21,18 +21,6 @@ module EndpointBase::Sinatra
       expect(response['request_id']).to eq 'abc456'
     end
 
-    it 'redirects to endpoint.json for GET on root url' do
-      get '/', nil, {}
-      expect(last_response.status).to eq 302
-      expect(last_response.location).to eq 'http://example.org/endpoint.json'
-    end
-
-    it 'redirect to relative root endpoint.json for GET on mapped root url' do
-      get '/myapp/', nil, {}
-      expect(last_response.status).to eq 302
-      expect(last_response.location).to eq 'http://example.org/myapp/endpoint.json'
-    end
-
     it 'returns a 200 for /auth check' do
       get '/auth', {}, headers
       expect(last_response).to be_ok

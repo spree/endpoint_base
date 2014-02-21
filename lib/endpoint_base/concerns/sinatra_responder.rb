@@ -8,14 +8,6 @@ module EndpointBase::Concerns
       elsif EndpointBase.sinatra?
         helpers Helpers
 
-        set :public_folder, './public'
-
-        before do
-          if request.get? && request.path_info == '/'
-            redirect "#{request.script_name}/endpoint.json"
-          end
-        end
-
         get '/auth' do
           status 200
         end
