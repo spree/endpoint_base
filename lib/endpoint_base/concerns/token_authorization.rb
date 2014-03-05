@@ -13,7 +13,7 @@ module EndpointBase::Concerns
     private
 
     def authorize_rails
-      unless request.headers["HTTP_X_AUGURY_TOKEN"] == ENV['ENDPOINT_KEY']
+      unless request.headers["HTTP_X_HUB_TOKEN"] == ENV['ENDPOINT_KEY']
         render status: 401, json: {text: 'unauthorized'}
         return false
       end
@@ -21,7 +21,7 @@ module EndpointBase::Concerns
 
     def authorize_sinatra
       return unless request.post?
-      halt 401 if request.env["HTTP_X_AUGURY_TOKEN"] != ENV['ENDPOINT_KEY']
+      halt 401 if request.env["HTTP_X_HUB_TOKEN"] != ENV['ENDPOINT_KEY']
     end
 
   end
