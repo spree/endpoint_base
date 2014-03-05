@@ -3,7 +3,7 @@ require File.join(File.dirname(__FILE__), 'spec_helper')
 module EndpointBase::Sinatra
   describe Base do
     let(:payload) { { :request_id => 'abc456', :order => {id: 'R123'} }.to_json }
-    let(:headers) { {'HTTP_X_AUGURY_TOKEN' => 'x123', "CONTENT_TYPE" => "application/json"} }
+    let(:headers) { {'HTTP_X_HUB_TOKEN' => 'x123', "CONTENT_TYPE" => "application/json"} }
 
     it 'rejects request without auth' do
       post '/', payload
@@ -13,7 +13,6 @@ module EndpointBase::Sinatra
     it 'accepts POST with auth' do
       post '/', payload, headers
       expect(last_response).to be_ok
-
 
       response = ::JSON.parse(last_response.body)
 

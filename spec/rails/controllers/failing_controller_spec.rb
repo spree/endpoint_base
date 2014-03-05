@@ -20,7 +20,7 @@ describe FailingController, type: 'controller' do
   end
 
   it "return 401 on authorization failues" do
-    request.env['HTTP_X_AUGURY_TOKEN'] = 'wrong'
+    request.env['HTTP_X_HUB_TOKEN'] = 'wrong'
     post :index, message
 
     response.code.should eq '401'

@@ -4,7 +4,7 @@ module Spree
       ENV['ENDPOINT_KEY'] ||= '123'
 
       def auth
-        { 'HTTP_X_AUGURY_TOKEN' => ENV['ENDPOINT_KEY'], 'CONTENT_TYPE' => 'application/json' }
+        { 'HTTP_X_HUB_TOKEN' => ENV['ENDPOINT_KEY'], 'CONTENT_TYPE' => 'application/json' }
       end
 
       def json_response
