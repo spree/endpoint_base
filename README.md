@@ -33,6 +33,9 @@ gem 'endpoint_base'
 #### Endpoint
 
 ```ruby
+require "sinatra"
+require "endpoint_base"
+
 class SampleEndpoint < EndpointBase::Sinatra::Base
   post '/sample' do
     # Return an order object.
