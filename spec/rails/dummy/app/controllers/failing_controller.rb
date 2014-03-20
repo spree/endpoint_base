@@ -4,4 +4,8 @@ class FailingController < ApplicationController
   def index
     raise 'I see dead people'
   end
+
+  def failure
+    result 500, 'this was a failure'
+  end
 end

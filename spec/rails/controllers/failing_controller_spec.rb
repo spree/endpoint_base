@@ -26,4 +26,11 @@ describe FailingController, type: 'controller' do
     response.code.should eq '401'
     json_response['text'].should eq 'unauthorized'
   end
+
+  it 'can set response code and set summary with a single call' do
+    post :failure, message
+
+    response.code.should eq '500'
+    json_response['summary'].should  == 'this was a failure'
+  end
 end

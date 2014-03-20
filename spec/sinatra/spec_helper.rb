@@ -83,4 +83,8 @@ class TestEndpoint < EndpointBase::Sinatra::Base
 
     process_result 200
   end
+
+  post '/result' do
+    result 200, 'this was a success'
+  end
 end

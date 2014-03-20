@@ -11,6 +11,11 @@ module EndpointBase::Concerns
     end
 
     module Helpers
+      def result(code, summary)
+        set_summary summary
+        process_result code
+      end
+
       def process_result(code)
         render "#{EndpointBase.path_to_views}/application/response.json", status: code
       end

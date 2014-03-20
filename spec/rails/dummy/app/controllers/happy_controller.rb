@@ -9,4 +9,8 @@ class HappyController < ApplicationController
 
     process_result 200
   end
+
+  def success
+    result 200, 'this was a success'
+  end
 end

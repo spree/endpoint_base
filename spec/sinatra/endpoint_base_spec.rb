@@ -76,5 +76,13 @@ module EndpointBase::Sinatra
       response = ::JSON.parse(last_response.body)
       expect(response['summary']).to eq 'everything is ok'
     end
+
+    it 'can set response code and set summary with a single call' do
+      post '/result', payload, headers
+
+      expect(last_response.status).to eq 200
+      response = ::JSON.parse(last_response.body)
+      expect(response['summary']).to eq 'this was a success'
+    end
   end
 end

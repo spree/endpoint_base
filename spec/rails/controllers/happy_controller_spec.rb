@@ -24,4 +24,11 @@ describe HappyController, type: 'controller' do
 
     json_response['summary'].should  == 'today is a good day to ...'
   end
+
+  it 'can set response code and set summary with a single call' do
+    post :success, message
+
+    response.code.should eq '200'
+    json_response['summary'].should  == 'this was a success'
+  end
 end
