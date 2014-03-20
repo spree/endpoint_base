@@ -1,6 +1,8 @@
 class HappyController < ApplicationController
   include EndpointBase::Concerns::All
 
+  endpoint_key 'x123'
+
   def index
     add_object :product, { id: 1, name: 'Test Product' }
     add_parameter 'spree.order_poll.last_updated_at', 'today'

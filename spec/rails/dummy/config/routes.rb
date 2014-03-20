@@ -4,4 +4,6 @@ Dummy::Application.routes.draw do
 
   post 'happy' => 'happy#index'
   post 'success' => 'happy#success'
+
+  post 'noauth' => 'no_auth#index'
 end

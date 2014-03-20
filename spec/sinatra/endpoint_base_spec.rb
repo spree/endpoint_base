@@ -84,5 +84,23 @@ module EndpointBase::Sinatra
       response = ::JSON.parse(last_response.body)
       expect(response['summary']).to eq 'this was a success'
     end
+
+    context 'no auth' do
+      let(:app) { NoAuthEndpoint }
+
+      it 'allow no auth to be passed' do
+        post '/', payload
+        expect(last_response.status).to eq 200
+        response = ::JSON.parse(last_response.body)
+        expect(response['summary']).to eq 'no auth!'
+      end
+
+      it 'ignores auth if passed' do
+        post '/', payload, headers
+        expect(last_response.status).to eq 200
+        response = ::JSON.parse(last_response.body)
+        expect(response['summary']).to eq 'no auth!'
+      end
+    end
   end
 end

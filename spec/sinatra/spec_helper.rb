@@ -36,10 +36,16 @@ RSpec.configure do |config|
   config.include Rack::Test::Methods
 end
 
-ENV['ENDPOINT_KEY'] = 'x123'
+class NoAuthEndpoint < EndpointBase::Sinatra::Base
+  post '/' do
+    result 200, 'no auth!'
+  end
+end
 
 class TestEndpoint < EndpointBase::Sinatra::Base
   set :logging, true
+
+  endpoint_key 'x123'
 
   post '/' do
     process_result 200

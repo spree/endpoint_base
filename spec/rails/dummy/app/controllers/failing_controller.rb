@@ -1,6 +1,8 @@
 class FailingController < ApplicationController
   include EndpointBase::Concerns::All
 
+  endpoint_key 'x123'
+
   def index
     raise 'I see dead people'
   end

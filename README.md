@@ -37,6 +37,12 @@ require "sinatra"
 require "endpoint_base"
 
 class SampleEndpoint < EndpointBase::Sinatra::Base
+  # optional security check, value supplied is compared against HTTP_X_HUB_TOKEN header
+  # which is included in all requests sent by the hub, header is unique per integration.
+  #
+  # to opt of out security check, do not include this line
+  endpoint_key 'abc123'
+
   post '/sample' do
     # Return an order object.
     add_object :order, { id: 1, email: 'test@example.com' }
@@ -44,22 +50,16 @@ class SampleEndpoint < EndpointBase::Sinatra::Base
     # Create or update the parameter sample.new.
     add_parameter 'sample.new', '...'
 
-    # Set the notification summary.
-    set_summary 'The order was imported correctly'
-
     # Return a customized key and value.
     add_value 'my_customized_key', { ... }
 
-    #return the relevant HTTP status code
-    process_result 200
+    #return the relevant HTTP status code, and set the notification summary.
+    result 200, 'The order was imported correctly'
   end
 
   post '/fail' do
-    # Set the notification summary.
-    set_summary 'The order failed to imported'
-
-    #return the relevant HTTP status code
-    process_result 500
+    #return the relevant HTTP status code, and set the notification summary.
+    process_result 500, 'The order failed to imported'
   end
 end
 
@@ -82,6 +82,12 @@ class SampleController < ApplicationController
   include EndpointBase::Concerns::All
   skip_before_filter :verify_authenticity_token
 
+  # optional security check, value supplied is compared against HTTP_X_HUB_TOKEN header
+  # which is included in all requests sent by the hub, header is unique per integration.
+  #
+  # to opt of out security check, do not include this line
+  endpoint_key 'abc123'
+
   def sample
     # Return an order object.
     add_object :order, { id: 1, email: 'test@example.com' }
@@ -89,22 +95,16 @@ class SampleController < ApplicationController
     # Create or update the parameter sample.new.
     add_parameter 'sample.new', '...'
 
-    # Set the notification summary.
-    set_summary 'The order was imported correctly'
-
     # Return a customized key and value.
     add_value 'my_customized_key', { ... }
 
-    #return the relevant HTTP status code
-    process_result 200
+    #return the relevant HTTP status code, and set the notification summary.
+    result 200, 'The order was imported correctly'
   end
 
   def fail
-    # Set the notification summary.
-    set_summary 'The order failed to imported'
-
-    #return the relevant HTTP status code
-    process_result 500
+    #return the relevant HTTP status code, and set the notification summary.
+    process_result 500, 'The order failed to imported'
   end
 end
 

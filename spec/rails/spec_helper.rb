@@ -9,5 +9,3 @@ RSpec.configure do |config|
   config.order = "random"
   config.render_views
 end
-
-ENV['ENDPOINT_KEY'] = 'x123'
