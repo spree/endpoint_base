@@ -104,7 +104,7 @@ class SampleController < ApplicationController
 
   def fail
     #return the relevant HTTP status code, and set the notification summary.
-    process_result 500, 'The order failed to imported'
+    result 500, 'The order failed to imported'
   end
 end
 
