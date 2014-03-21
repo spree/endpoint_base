@@ -15,8 +15,8 @@ module EndpointBase::Concerns
     end
 
     module Helpers
-      def result(code, summary)
-        set_summary summary
+      def result(code, summary = nil)
+        set_summary summary if summary
         process_result code
       end
 
