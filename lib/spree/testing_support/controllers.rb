@@ -8,7 +8,7 @@ module Spree
       end
 
       def json_response
-        @json_response ||= JSON.parse(last_response.body)
+        @json_response ||= JSON.parse(last_response.body).with_indifferent_access
       end
 
       def app
