@@ -93,4 +93,9 @@ class TestEndpoint < EndpointBase::Sinatra::Base
   post '/result' do
     result 200, 'this was a success'
   end
+
+  post '/multi_result' do
+    result 500, 'this was a fail'
+    result 200, 'this was a success'
+  end
 end

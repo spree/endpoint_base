@@ -85,6 +85,14 @@ module EndpointBase::Sinatra
       expect(response['summary']).to eq 'this was a success'
     end
 
+    it 'halts processing on the first result call' do
+      post '/multi_result', payload, headers
+
+      expect(last_response.status).to eq 500
+      response = ::JSON.parse(last_response.body)
+      expect(response['summary']).to eq 'this was a fail'
+    end
+
     context 'no auth' do
       let(:app) { NoAuthEndpoint }
 
