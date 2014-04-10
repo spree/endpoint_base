@@ -7,7 +7,7 @@ module EndpointBase
       include EndpointBase::Concerns::SinatraResponder
       include EndpointBase::Concerns::ExceptionHandler
 
-      get '/status' do
+      get '/' do
         'ok\n'
       end
     end

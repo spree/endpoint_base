@@ -20,8 +20,8 @@ module EndpointBase::Sinatra
       expect(response['request_id']).to eq 'abc456'
     end
 
-    it 'returns a 200 for /status check' do
-      get '/status', {}
+    it 'returns a 200 for GET /' do
+      get '/', {}
       expect(last_response).to be_ok
     end
 
