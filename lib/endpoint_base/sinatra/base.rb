@@ -8,7 +8,7 @@ module EndpointBase
       include EndpointBase::Concerns::ExceptionHandler
 
       get '/' do
-        'ok\n'
+        "#{self.class.name} ok"
       end
     end
   end
