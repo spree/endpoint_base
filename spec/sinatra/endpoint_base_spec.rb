@@ -66,6 +66,14 @@ module EndpointBase::Sinatra
                                                      { 'id' => 2, 'email' => 'spree@example.com' }])
         expect(response['products']).to eq([{ 'id' => 1, 'sku' => 'ROR-123' }])
       end
+
+      it "object has nil id" do
+        post '/add_objects_nil_id', payload, headers
+        expect(last_response).not_to be_ok
+
+        response = ::JSON.parse(last_response.body)
+        expect(response['summary']).to match "cannot be empty"
+      end
     end
 
     it 'returns parameters set' do

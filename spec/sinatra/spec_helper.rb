@@ -78,6 +78,15 @@ class TestEndpoint < EndpointBase::Sinatra::Base
     process_result 200
   end
 
+  post '/add_objects_nil_id' do
+    begin
+      add_object :product, { id: nil, sku: 'ROR-123' }
+      process_result 200
+    rescue => e
+      result 500, e.message
+    end
+  end
+
   post '/add_parameter' do
     add_parameter 'some.param', 123
 

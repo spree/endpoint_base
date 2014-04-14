@@ -29,6 +29,8 @@ module EndpointBase::Concerns
       end
 
       def add_object(klass, object)
+        raise "object[:id] cannot be empty" unless object[:id].present?
+
         @objects ||= Hash.new {|h,k| h[k] = []}
         @objects[klass.to_s.pluralize] << object
       end
