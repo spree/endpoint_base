@@ -19,10 +19,16 @@ module EndpointBase::Concerns
         before do
           if request.post?
             begin
-              parsed = ::JSON.parse(request.body.read).with_indifferent_access
+              body = request.body.read
+              parsed = ::JSON.parse(body).with_indifferent_access
             rescue Exception => e
+              #notify of exception if Honeybadger is present
+              Honeybadger.notify(e, { context: { request: body } }) if Object.const_defined?('Honeybadger')
               halt 406
             end
+
+            #set context in case an exception happens
+            Honeybadger.context(request: parsed) if Object.const_defined?('Honeybadger')
 
             prepare_payload parsed
             prepare_config parsed
