@@ -4,22 +4,22 @@ module EndpointBase::Concerns
 
     included do
       if EndpointBase.rails?
-        rescue_from Exception, :with => :exception_handler
+        rescue_from Exception, :with => :rails_exception_handler
       elsif EndpointBase.sinatra?
         error do
           log_exception(env['sinatra.error'])
+
+          result 500, env['sinatra.error'].message
         end
       end
     end
 
     private
 
-    def exception_handler(exception)
+    def rails_exception_handler(exception)
       log_exception(exception)
 
-      render status: 500, action: '500.json.jbuilder',
-             locals: { error: exception.message }
-
+      result 500, exception.message
       return false
     end
 

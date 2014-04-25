@@ -123,5 +123,12 @@ module EndpointBase::Sinatra
         expect(response['summary']).to eq 'no auth!'
       end
     end
+
+    it 'handles all exceptions and returns json' do
+      post '/failure', payload, headers
+      expect(last_response.status).to eq 500
+      response = ::JSON.parse(last_response.body)
+      expect(response['summary']).to eq 'If you had used PHP, and this would not have happened'
+    end
   end
 end

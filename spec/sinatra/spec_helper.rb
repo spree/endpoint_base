@@ -107,4 +107,8 @@ class TestEndpoint < EndpointBase::Sinatra::Base
     result 500, 'this was a fail'
     result 200, 'this was a success'
   end
+
+  post '/failure' do
+    raise 'If you had used PHP, and this would not have happened'
+  end
 end
