@@ -7,8 +7,7 @@ module EndpointBase::Concerns
         rescue_from Exception, :with => :exception_handler
       elsif EndpointBase.sinatra?
         error do
-          puts env['sinatra.error'].message
-          puts env['sinatra.error'].backtrace
+          log_exception(env['sinatra.error'])
         end
       end
     end
@@ -16,11 +15,18 @@ module EndpointBase::Concerns
     private
 
     def exception_handler(exception)
-      Rails.logger.error exception.backtrace
+      log_exception(exception)
+
       render status: 500, action: '500.json.jbuilder',
              locals: { error: exception.message }
+
       return false
     end
 
+    def log_exception(exception)
+      if Object.const_defined?('Honeybadger')
+        Honeybadger.notify(exception, { context: { request: @payload } })
+      end
+    end
   end
 end

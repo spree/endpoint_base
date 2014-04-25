@@ -27,9 +27,6 @@ module EndpointBase::Concerns
               halt 406
             end
 
-            #set context in case an exception happens
-            Honeybadger.context(request: parsed) if Object.const_defined?('Honeybadger')
-
             prepare_payload parsed
             prepare_config parsed
           end
