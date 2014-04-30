@@ -27,6 +27,10 @@ module EndpointBase::Concerns
       if Object.const_defined?('Honeybadger')
         Honeybadger.notify(exception, { context: { request: @payload } })
       end
+
+      if Object.const_defined?('Airbrake')
+        Airbrake.notify(exception, parameters: @payload)
+      end
     end
   end
 end
