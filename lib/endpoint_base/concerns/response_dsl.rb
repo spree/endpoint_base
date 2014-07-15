@@ -29,9 +29,10 @@ module EndpointBase::Concerns
       end
 
       def add_object(klass, object)
-        raise "object[:id] cannot be empty" unless object[:id].present?
+        raise 'object[id] cannot be empty' if object[:id].blank? && object['id'].blank?
 
-        @objects ||= Hash.new {|h,k| h[k] = []}
+        @objects ||= Hash.new { |h,k| h[k] = [] }
+
         @objects[klass.to_s.pluralize] << object
       end
     end
