@@ -51,12 +51,12 @@ class TestEndpoint < EndpointBase::Sinatra::Base
     process_result 200
   end
 
-  #used to verify JSON parsing in param_processor
+  # used to verify JSON parsing in param_processor
   post '/payload' do
     @payload.to_json
   end
 
-  #used to verify parameters are correctly stored in @config
+  # used to verify parameters are correctly stored in @config
   post '/config' do
     add_value :params, @config
 

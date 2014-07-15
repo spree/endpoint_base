@@ -49,7 +49,7 @@ module EndpointBase::Concerns
         end
       end
 
-      @config || {}
+      @config ||= {}
     end
 
     module Helpers
