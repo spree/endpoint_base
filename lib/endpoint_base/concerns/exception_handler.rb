@@ -6,9 +6,11 @@ module EndpointBase::Concerns
       if EndpointBase.rails?
         rescue_from Exception, :with => :rails_exception_handler
       elsif EndpointBase.sinatra?
+        # Ensure error handlers run
+        set :show_exceptions, false
+
         error do
           log_exception(env['sinatra.error'])
-
           result 500, env['sinatra.error'].message
         end
       end
