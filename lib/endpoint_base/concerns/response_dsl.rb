@@ -18,6 +18,21 @@ module EndpointBase::Concerns
         @attrs[name] = value
       end
 
+      def add_or_merge_value(name, value)
+        @attrs ||= {}
+
+        unless @attrs[name]
+          @attrs[name] = value
+        else
+          old_value = @attrs[name]
+
+          collection = (old_value + value).flatten
+          group = collection.group_by { |h| h[:id] || h['id'] }
+
+          @attrs[name] = group.map { |k, v| v.reduce(:merge) }
+        end
+      end
+
       def add_parameter(name, value)
         @parameters ||= {}
 

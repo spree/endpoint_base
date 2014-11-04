@@ -56,6 +56,19 @@ module EndpointBase::Sinatra
       expect(last_response.content_type).to eq 'application/json;charset=utf-8'
     end
 
+    it 'deep merge objects on same root key' do
+      payload = {
+        pirates: [{ id: 1 }, { id: 7 }],
+        merged_pirates: [{ id: 1, name: 'Sparrow' }, { id: 9 }]
+      }
+
+      post '/add_or_merge_value', payload.to_json, headers
+      response = ::JSON.parse(last_response.body)
+
+      expected = [{ 'id' => 1, 'name' => 'Sparrow' }, { 'id' => 7 }, { 'id' => 9 }]
+      expect(response['pirates']).to eq expected
+    end
+
     describe '#add_objects' do
       it 'adds objects' do
         post '/add_objects', payload, headers

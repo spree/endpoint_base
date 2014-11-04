@@ -70,6 +70,13 @@ class TestEndpoint < EndpointBase::Sinatra::Base
     process_result 200
   end
 
+  post '/add_or_merge_value' do
+    add_or_merge_value :pirates, @payload[:pirates]
+    add_or_merge_value :pirates, @payload[:merged_pirates]
+
+    process_result 200
+  end
+
   post '/add_objects' do
     add_object :order, { id: 1, email: 'test@example.com' }
     add_object :order, { id: 2, email: 'spree@example.com' }
