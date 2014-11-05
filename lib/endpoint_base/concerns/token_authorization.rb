@@ -19,10 +19,6 @@ module EndpointBase::Concerns
         render status: 401, json: {text: 'unauthorized'}
         return false
       end
-
-      if @endpoint_key.nil? && request.headers["HTTP_X_HUB_TOKEN"].present?
-        Rails.logger.error "HTTP_X_HUB_TOKEN is present but endpoint_key is not set. This endpoint may not be secure."
-      end
     end
 
     def authorize_sinatra
@@ -30,10 +26,6 @@ module EndpointBase::Concerns
 
       if @endpoint_key = settings.endpoint_key rescue nil
         halt 401 if request.env["HTTP_X_HUB_TOKEN"] != @endpoint_key
-      end
-
-      if @endpoint_key.nil? && request.env["HTTP_X_HUB_TOKEN"].present?
-        puts "HTTP_X_HUB_TOKEN is present but endpoint_key is not set. This endpoint may not be secure."
       end
     end
 
