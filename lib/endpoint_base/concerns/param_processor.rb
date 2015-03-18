@@ -22,9 +22,10 @@ module EndpointBase::Concerns
               body = request.body.read
               parsed = ::JSON.parse(body).with_indifferent_access
             rescue Exception => e
-              # notify of exception if Honeybadger or Airbrake is present
+              # notify of exception if Honeybadger or Airbrake or Rollbar is present
               Honeybadger.notify(e, { context: { request: body } }) if Object.const_defined?('Honeybadger')
               Airbrake.notify(e, parameters: @payload) if Object.const_defined?('Airbrake')
+              Rollbar.error(e, parameters: @payload) if Object.const_defined?('Rollbar')
 
               halt 406
             end

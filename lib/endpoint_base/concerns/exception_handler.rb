@@ -33,6 +33,10 @@ module EndpointBase::Concerns
       if Object.const_defined?('Airbrake')
         Airbrake.notify(exception, parameters: @payload)
       end
+
+      if Object.const_defined?('Rollbar')
+        Rollbar.error(exception, parameters: @payload)
+      end
     end
   end
 end
