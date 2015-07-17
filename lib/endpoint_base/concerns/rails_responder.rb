@@ -17,7 +17,7 @@ module EndpointBase::Concerns
       end
 
       def process_result(code)
-        render "#{EndpointBase.path_to_views}/application/response.json", status: code
+        render file: "#{EndpointBase.path_to_views}/application/response.json", status: code
       end
     end
   end
